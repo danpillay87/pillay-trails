@@ -1,6 +1,7 @@
 {
-  "area": "Guildford",
+  "area": "Surrey",
   "trails": [
-    { "file": "guildford-2026-06-18.json", "title": "This week's Guildford trail" }
+    { "file": "westcott-2026-06-20.json", "title": "Westcott Detectives (Sat)" },
+    { "file": "guildford-2026-06-18.json", "title": "Alice's Guildford" }
   ]
 }

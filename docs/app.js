@@ -16,6 +16,8 @@
     openStopId: null,
     overridden: new Set(),
     eli: new Set(),
+    allTrails: [],
+    currentFile: null,
     map: null,
     markers: {},
     youMarker: null,
@@ -75,22 +77,33 @@
 
   /* ---------- load trail ---------- */
   async function boot(){
-    let file = new URLSearchParams(location.search).get("trail");
+    const want = new URLSearchParams(location.search).get("trail");
     try{
-      if(!file){
-        const idx = await fetch("trails/index.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null);
-        if(idx && Array.isArray(idx.trails) && idx.trails.length) file = idx.trails[0].file;
-      }
+      let trails = [];
+      const idx = await fetch("trails/index.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null);
+      if(idx && Array.isArray(idx.trails)) trails = idx.trails;
+      state.allTrails = trails;
+      const file = want || (trails[0] && trails[0].file);
       if(!file) throw new Error("No trail configured yet.");
+      state.currentFile = file;
       const trail = await fetch("trails/"+file,{cache:"no-store"}).then(r=>{ if(!r.ok) throw new Error("Couldn't load trail ("+r.status+")."); return r.json(); });
       state.trail = trail;
       loadProgress();
       renderIntro();
+      renderSwitcher();
     }catch(err){
       const e = $("intro-error"); e.hidden=false; e.textContent = "Trail not available yet: "+err.message;
       $("intro-title").textContent = "No trail loaded";
       $("intro-theme").textContent = "—";
     }
+  }
+  function renderSwitcher(){
+    const el=$("trail-switcher"); if(!el) return;
+    if(!state.allTrails || state.allTrails.length<2){ el.hidden=true; return; }
+    el.hidden=false;
+    el.innerHTML='<div class="switch-label">Choose a trail</div>'+
+      state.allTrails.map(t=>'<button class="switch-btn'+(t.file===state.currentFile?' cur':'')+'" data-file="'+escapeHtml(t.file)+'"'+(t.file===state.currentFile?' disabled':'')+'>'+escapeHtml(t.title||t.file)+(t.file===state.currentFile?' ✓':'')+'</button>').join("");
+    el.querySelectorAll('.switch-btn').forEach(b=>{ if(b.dataset.file!==state.currentFile){ b.onclick=()=>{ location.search="?trail="+encodeURIComponent(b.dataset.file); }; } });
   }
 
   function renderIntro(){
