@@ -72,6 +72,13 @@
 
     <div id="sheet-status" class="status far">📍 Locating…</div>
 
+    <div id="eli-mission" class="eli-block" hidden>
+      <div class="eli-head">👶 Eli's mission</div>
+      <p id="eli-task" class="eli-task"></p>
+      <button id="btn-eli" class="btn btn-eli">Eli found it! ⭐</button>
+      <p id="eli-done" class="eli-done" hidden>⭐ Yay, Eli!</p>
+    </div>
+
     <div id="answer-block">
       <label for="sheet-answer" class="lbl">Your answer</label>
       <div class="answer-row">
@@ -89,6 +96,7 @@
     <div id="sheet-reveal" class="reveal" hidden>
       <div class="found-badge">✅ Found it!</div>
       <p id="sheet-story" class="story"></p>
+      <p id="grownup-bonus" class="grownup" hidden></p>
       <a id="sheet-source" class="source-link" href="#" target="_blank" rel="noopener" hidden>Read more ↗</a>
       <button id="btn-next" class="btn btn-primary">Next stop ›</button>
     </div>
@@ -100,6 +108,7 @@
       <div class="confetti">🎉</div>
       <h1 id="finale-title">You made it!</h1>
       <p id="finale-msg" class="muted"></p>
+      <div id="sticker-strip" class="stickers"></div>
       <div id="finale-reward" class="card reward"></div>
       <button id="btn-restart" class="btn btn-ghost">Walk it again</button>
     </div>

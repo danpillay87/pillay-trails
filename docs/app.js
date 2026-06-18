@@ -15,6 +15,7 @@
     pos: null,          // {lat,lng,acc}
     openStopId: null,
     overridden: new Set(),
+    eli: new Set(),
     map: null,
     markers: {},
     youMarker: null,
@@ -58,8 +59,13 @@
     });
   }
   function storeKey(){ return "gt:" + (state.trail ? state.trail.id : "x"); }
+  function eliKey(){ return "gt:eli:" + (state.trail ? state.trail.id : "x"); }
   function saveProgress(){ try{ localStorage.setItem(storeKey(), JSON.stringify([...state.found])); }catch(e){} }
-  function loadProgress(){ try{ const r = JSON.parse(localStorage.getItem(storeKey())||"[]"); state.found = new Set(r);}catch(e){ state.found = new Set(); } }
+  function saveEli(){ try{ localStorage.setItem(eliKey(), JSON.stringify([...state.eli])); }catch(e){} }
+  function loadProgress(){
+    try{ state.found = new Set(JSON.parse(localStorage.getItem(storeKey())||"[]")); }catch(e){ state.found = new Set(); }
+    try{ state.eli = new Set(JSON.parse(localStorage.getItem(eliKey())||"[]")); }catch(e){ state.eli = new Set(); }
+  }
 
   function showScreen(id){
     document.querySelectorAll(".screen").forEach((s)=>s.classList.remove("active"));
@@ -236,11 +242,14 @@
     $("sheet-answer").parentElement.style.display = isArrival?"none":"flex";
     $("btn-hint").style.display = (s.answer_hint && !isArrival)?"":"none";
     $("btn-submit").textContent = isArrival?"Check in here":"Check";
+    const eliBlock=$("eli-mission");
+    if(s.little_ones){ eliBlock.hidden=false; $("eli-task").textContent=s.little_ones; $("eli-done").hidden=!state.eli.has(s.id); }
+    else eliBlock.hidden=true;
     if(found){
       answerBlock.hidden=true; reveal.hidden=false;
-      $("sheet-story").textContent=s.story||""; setSource(s);
+      $("sheet-story").textContent=s.story||""; setSource(s); setGrownup(s);
     }else{
-      answerBlock.hidden=false; reveal.hidden=true;
+      answerBlock.hidden=false; reveal.hidden=true; $("grownup-bonus").hidden=true;
     }
     refreshSheetStatus();
     openSheet();
@@ -248,6 +257,10 @@
   function setSource(s){
     const a=$("sheet-source");
     if(s.source){ a.hidden=false; a.href=s.source; } else a.hidden=true;
+  }
+  function setGrownup(s){
+    const g=$("grownup-bonus");
+    if(s.grownup){ g.hidden=false; g.textContent="🧠 Grown-up bonus: "+s.grownup; } else g.hidden=true;
   }
   function refreshSheetStatus(){
     const s=stopById(state.openStopId); if(!s) return;
@@ -282,7 +295,7 @@
     if(state.markers[s.id]) state.markers[s.id].setIcon(numIcon(s.id,true));
     $("answer-block").hidden=true;
     const reveal=$("sheet-reveal"); reveal.hidden=false;
-    $("sheet-story").textContent=s.story||"Nice one."; setSource(s);
+    $("sheet-story").textContent=s.story||"Nice one."; setSource(s); setGrownup(s);
     $("sheet-num").textContent="✓";
     refreshSheetStatus(); updateProgress(); renderStops();
   }
@@ -302,13 +315,17 @@
     const t=state.trail;
     showScreen("screen-finale");
     $("finale-title").textContent = (t.finale&&t.finale.title) || "You made it! 🎉";
-    $("finale-msg").textContent = (t.finale&&t.finale.message) || ("You found all "+t.stops.length+" stops on the "+t.title+".");
+    let msg = (t.finale&&t.finale.message) || ("You found all "+t.stops.length+" stops on the "+t.title+".");
+    if(state.eli.size) msg += "  Eli spotted "+state.eli.size+(state.eli.size===1?" thing":" things")+" along the way! ⭐";
+    $("finale-msg").textContent = msg;
+    const strip=$("sticker-strip");
+    if(strip) strip.innerHTML = t.stops.filter(s=>state.found.has(s.id)).map(s=>'<span class="sticker">'+(s.sticker||"⭐")+'</span>').join("");
     const r=$("finale-reward");
     if(t.finale&&t.finale.reward_idea){ r.hidden=false; r.innerHTML="<strong>🏁 Your reward</strong><br>"+escapeHtml(t.finale.reward_idea); }
     else r.hidden=true;
   }
   function restart(){
-    state.found=new Set(); state.overridden=new Set(); saveProgress();
+    state.found=new Set(); state.overridden=new Set(); state.eli=new Set(); saveProgress(); saveEli();
     Object.values(state.markers).forEach((m,i)=>{}); // icons refreshed on start
     state.trail.stops.forEach(s=>{ if(state.markers[s.id]) state.markers[s.id].setIcon(numIcon(s.id,false)); });
     startTrail();
@@ -334,6 +351,7 @@
     $("btn-hint").onclick=()=>{ const s=stopById(state.openStopId); const h=$("sheet-hint"); h.hidden=false; h.textContent="💡 "+(s&&s.answer_hint?s.answer_hint:"No hint for this one — trust your eyes."); };
     $("btn-override").onclick=()=>{ const s=stopById(state.openStopId); if(s){ state.overridden.add(s.id); refreshSheetStatus(); toast("OK — marked you as here."); } };
     $("btn-next").onclick=nextStop;
+    $("btn-eli").onclick=()=>{ const s=stopById(state.openStopId); if(!s) return; state.eli.add(s.id); saveEli(); $("eli-done").hidden=false; toast("⭐ Yay Eli! Well spotted!"); };
     $("btn-restart").onclick=restart;
   }
 
