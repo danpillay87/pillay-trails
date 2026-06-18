@@ -1,0 +1,92 @@
+{
+  "id": "guildford-2026-06-18",
+  "title": "Alice's Guildford — a Looking-Glass Town trail",
+  "theme": "Alice's Guildford",
+  "area": "Guildford",
+  "date_relevance": "Evergreen · optional Summer Solstice overlay (21 Jun)",
+  "blurb": "Follow Lewis Carroll's Guildford — the town where he finished Through the Looking-Glass and where two bronze Alices still play. Five real landmarks, clues you solve on the spot.",
+  "difficulty": "standard",
+  "distance_km": 2.0,
+  "duration_min": 60,
+  "ordered": false,
+  "start": {
+    "lat": 51.2364179,
+    "lng": -0.5700983,
+    "name": "Top of the High Street, by the George Abbot statue",
+    "directions": "~10 min walk from Guildford rail station (London Waterloo line). Nearest car parks: Castle (Sydenham Rd), Tunsgate Quarter, or the Friary."
+  },
+  "stops": [
+    {
+      "id": 1,
+      "name": "George Abbot Statue",
+      "lat": 51.2364179,
+      "lng": -0.5700983,
+      "geofence_m": 35,
+      "clue_type": "durable",
+      "clue": "A bronze man in archbishop's robes stands at the top of the High Street. Look closely at his hands — what is he holding?",
+      "answer": ["open book", "a book", "book", "an open book", "bible"],
+      "answer_hint": "It's something you'd read — held open in his hand.",
+      "story": "George Abbot, born in Guildford in 1562, rose to become Archbishop of Canterbury. This bronze by Faith Winter was unveiled in 1993. He founded the almshouses just behind you — Abbot's Hospital — in 1619.",
+      "source": "https://en.wikipedia.org/wiki/Abbot%27s_Hospital"
+    },
+    {
+      "id": 2,
+      "name": "The Guildhall Clock",
+      "lat": 51.23587,
+      "lng": -0.57236,
+      "geofence_m": 30,
+      "clue_type": "durable",
+      "clue": "Find the famous golden clock that juts right out over the High Street. A grateful clockmaker gave it to the town — what year is painted in big gold figures on it?",
+      "answer": ["1683"],
+      "answer_hint": "Four digits in gold, in the 1680s.",
+      "story": "London clockmaker John Aylward gave the town this projecting gilt clock in 1683 — in return for being allowed to trade here. English oak case, copper dials, re-gilded in 23½-carat gold leaf. It's the symbol of Guildford.",
+      "source": "https://en.wikipedia.org/wiki/Guildford_Guildhall"
+    },
+    {
+      "id": 3,
+      "name": "Guildford Castle & the Looking-Glass Alice",
+      "lat": 51.234314,
+      "lng": -0.572431,
+      "geofence_m": 60,
+      "clue_type": "virtual",
+      "clue": "Climb up to the Castle gardens. Tucked in a walled corner is a little bronze girl caught mid-step, doing the magical thing from the title of the book Lewis Carroll finished here. What is Alice stepping through?",
+      "answer": ["mirror", "the mirror", "a mirror", "looking glass", "looking-glass", "the looking glass"],
+      "answer_hint": "Through the Looking-…",
+      "story": "The Norman keep (built around the 1130s) towers over gardens opened to the public in 1888. In a walled corner stands Jeanne Argent's 1990 statue of Alice stepping through the mirror — Lewis Carroll completed 'Through the Looking-Glass' while staying with his sisters nearby on Castle Hill.",
+      "source": "https://en.wikipedia.org/wiki/Guildford_Castle"
+    },
+    {
+      "id": 4,
+      "name": "St Mary's Church, Quarry Street",
+      "lat": 51.2346,
+      "lng": -0.5774,
+      "geofence_m": 55,
+      "clue_type": "virtual",
+      "clue": "This little church on Quarry Street has the oldest stones in all of Guildford — and it's where Lewis Carroll's funeral was held. Its rough flint tower was raised around the year 1040. Which century does that make it?",
+      "answer": ["11th century", "11th", "eleventh", "11", "1040", "c1040"],
+      "answer_hint": "Built around 1040 — so it's the 11-hundreds minus one… count the hundreds.",
+      "story": "St Mary's Anglo-Saxon tower dates to about 1040, making it the oldest surviving building in Guildford — roughly 70 years older than the Castle. Lewis Carroll's funeral was held here in January 1898.",
+      "source": "https://en.wikipedia.org/wiki/St_Mary%27s_Church,_Guildford"
+    },
+    {
+      "id": 5,
+      "name": "Alice & the White Rabbit",
+      "lat": 51.235,
+      "lng": -0.579,
+      "geofence_m": 70,
+      "clue_type": "virtual",
+      "clue": "Down by the River Wey, a bronze Alice kneels on the grass, following someone in a terrible hurry. Who is she chasing?",
+      "answer": ["white rabbit", "the white rabbit", "a white rabbit", "rabbit"],
+      "answer_hint": "'I'm late! I'm late!' — a white…",
+      "story": "Edwin Russell's bronze, unveiled in 1984, shows Alice following the White Rabbit while her sister reads — echoing the riverboat afternoon that first sparked the tale. A lovely riverside finish.",
+      "source": "https://www.atlasobscura.com/places/alice-and-the-white-rabbit"
+    }
+  ],
+  "finale": {
+    "title": "You've found your way through Wonderland! 🐇",
+    "message": "Five stops, a thousand years of Guildford, and the town where Alice was dreamed up. Charles Dodgson — Lewis Carroll — knew these streets well.",
+    "reward_idea": "An ice cream by the River Wey, or a cream tea back up the High Street — you've earned it."
+  },
+  "credits": "Map data © OpenStreetMap contributors · facts © Wikipedia (CC BY-SA) · listings © Historic England (OGL)",
+  "_recce_notes": "FOOT-VERIFY these GPS pins on the first walk and tighten geofences: Stop 3 Looking-Glass Alice (in walled garden, tree cover — coord is the keep, 60 m fence covers grounds), Stop 4 St Mary's (Wikipedia coord only 4 dp), Stop 5 White Rabbit (riverside statue not individually geotagged — 70 m fence). Stops 1 & 2 coords are high-confidence."
+}

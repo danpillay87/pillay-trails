@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <title>Guildford Trails · Virtual Geocache</title>
+  <meta name="theme-color" content="#2b5c3f" />
+  <meta name="description" content="Self-guided virtual geocache trails around Guildford — clues, real landmarks, no physical caches." />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ INTRO SCREEN ============ -->
+  <section id="screen-intro" class="screen active">
+    <div class="wrap">
+      <div class="brand">🧭 <span>Guildford Trails</span></div>
+      <div id="intro-card" class="card hero">
+        <span id="intro-theme" class="chip">Loading…</span>
+        <h1 id="intro-title">Loading this week's trail…</h1>
+        <p id="intro-blurb" class="muted"></p>
+        <ul id="intro-meta" class="meta"></ul>
+        <div class="start-box">
+          <div class="start-head">📍 Start here</div>
+          <div id="intro-start" class="start-name"></div>
+          <div id="intro-directions" class="muted small"></div>
+        </div>
+        <button id="btn-start" class="btn btn-primary" disabled>Start the trail</button>
+        <p class="fineprint">You'll need to allow location access so the trail knows when you've reached each spot. Nothing is sent anywhere — it all stays on your phone.</p>
+      </div>
+      <p id="intro-error" class="error" hidden></p>
+      <footer class="credits" id="intro-credits"></footer>
+    </div>
+  </section>
+
+  <!-- ============ TRAIL SCREEN ============ -->
+  <section id="screen-trail" class="screen">
+    <header class="topbar">
+      <button id="btn-back" class="icon-btn" aria-label="Back to start">‹</button>
+      <div class="topbar-title" id="trail-title">Trail</div>
+      <div id="progress-pill" class="pill">0/0</div>
+    </header>
+
+    <div id="map" role="application" aria-label="Trail map"></div>
+
+    <div id="gps-banner" class="gps-banner" hidden>📡 Finding your location…</div>
+
+    <div class="stops-wrap">
+      <div class="stops-head">
+        <span>Stops</span>
+        <span class="muted small" id="stops-hint">Tap a stop to see its clue. Do them in any order.</span>
+      </div>
+      <div id="stops-list" class="stops-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ STOP BOTTOM SHEET ============ -->
+  <div id="sheet-backdrop" class="sheet-backdrop" hidden></div>
+  <aside id="stop-sheet" class="sheet" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="sheet-grip"></div>
+    <button id="btn-sheet-close" class="icon-btn sheet-close" aria-label="Close">×</button>
+
+    <div class="sheet-head">
+      <span id="sheet-num" class="stop-num">1</span>
+      <div>
+        <h2 id="sheet-name">Stop</h2>
+        <span id="sheet-type" class="badge">durable</span>
+      </div>
+    </div>
+
+    <p id="sheet-clue" class="clue"></p>
+
+    <div id="sheet-status" class="status far">📍 Locating…</div>
+
+    <div id="answer-block">
+      <label for="sheet-answer" class="lbl">Your answer</label>
+      <div class="answer-row">
+        <input id="sheet-answer" type="text" inputmode="text" autocomplete="off" autocapitalize="off" placeholder="Type what you find…" />
+        <button id="btn-submit" class="btn btn-primary">Check</button>
+      </div>
+      <p id="answer-feedback" class="feedback" hidden></p>
+      <div class="sheet-actions">
+        <button id="btn-hint" class="btn btn-ghost">💡 Hint</button>
+        <button id="btn-override" class="btn btn-ghost">GPS playing up? I'm here</button>
+      </div>
+      <p id="sheet-hint" class="hint" hidden></p>
+    </div>
+
+    <div id="sheet-reveal" class="reveal" hidden>
+      <div class="found-badge">✅ Found it!</div>
+      <p id="sheet-story" class="story"></p>
+      <a id="sheet-source" class="source-link" href="#" target="_blank" rel="noopener" hidden>Read more ↗</a>
+      <button id="btn-next" class="btn btn-primary">Next stop ›</button>
+    </div>
+  </aside>
+
+  <!-- ============ FINALE SCREEN ============ -->
+  <section id="screen-finale" class="screen">
+    <div class="wrap center">
+      <div class="confetti">🎉</div>
+      <h1 id="finale-title">You made it!</h1>
+      <p id="finale-msg" class="muted"></p>
+      <div id="finale-reward" class="card reward"></div>
+      <button id="btn-restart" class="btn btn-ghost">Walk it again</button>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>

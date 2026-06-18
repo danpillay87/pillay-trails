@@ -1,0 +1,4 @@
+SPEC.md
+*.draft.json
+__pycache__/
+.DS_Store

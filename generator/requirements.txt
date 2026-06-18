@@ -1,0 +1,3 @@
+requests>=2.31
+# Optional: only needed for the --llm clue-drafting pass
+anthropic>=0.40
