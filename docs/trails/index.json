@@ -1,6 +1,7 @@
 {
   "area": "Surrey",
   "trails": [
+    { "file": "stmarthas-2026-06-20.json", "title": "St Martha's Pilgrims (Sat AM)" },
     { "file": "westcott-2026-06-20.json", "title": "Westcott Detectives (Sat)" },
     { "file": "guildford-2026-06-18.json", "title": "Alice's Guildford" }
   ]
